@@ -47,7 +47,7 @@ Scenario Outline: User guesses word
 
 Scenario: increase points
   Given users guessed the word correctly
-  Then increase score by 5 * (5 – amount of guesses) + 5
+  Then increase score by "5 * (5 – amount of guesses) + 5"
 
 #exception
 Scenario: reached limit
