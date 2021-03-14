@@ -39,11 +39,11 @@ Scenario Outline: User guesses word
   Then user gets "<feedback>"
 
   Examples:
-    | word  | guess | feedback |
-    | h.... | hoi   | invalid, invalid, invalid, invalid, invalid |
-    | h.... | horde | goed, fout, fout, fout, fout                |
-    | h.... | halen | goed, goed, goed, fout, fout                |
-    | hal.. | hallo | goed, goed, goed, goed, goed                |
+    | word  | guess | feedback                                                    |
+    | h.... | hi    | invalid, invalid, invalid, invalid, invalid                 |
+    | h.... | horde | correct, incorrect, incorrect, incorrect, different place   |
+    | h.... | heros | correct, correct, incorrect, incorrect, incorrect           |
+    | he... | hello | correct, correct, correct, correct, correct                 |
 
 Scenario: increase points
   Given users guessed the word correctly
