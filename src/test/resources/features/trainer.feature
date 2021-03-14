@@ -7,7 +7,6 @@ Scenario: User starts round
   When user starts a new round
   Then show the first letter
 
-
 Feature: Start new game
   As a user,
   I want to start a game,
@@ -35,5 +34,51 @@ Feature: Make a guess
 
 # <word>,<guess> en <feedback>
 Scenario Outline: User guesses word
+  Given user sees a part of "<word">
+  When user guesses "<gues>"
+  Then user gets "<feedback>"
+
   Examples:
-    |  |
+    | word  | guess | feedback |
+    | h.... | hoi   | invalid, invalid, invalid, invalid, invalid |
+    | h.... | horde | goed, fout, fout, fout, fout                |
+    | h.... | halen | goed, goed, goed, fout, fout                |
+    | hal.. | hallo | goed, goed, goed, goed, goed                |
+
+Scenario: increase points
+  Given users guessed the word correctly
+  Then increase score by 5 * (5 – amount of guesses) + 5
+
+#exception
+Scenario: reached limit
+  Given user guessed more then "5" times
+  When user guesses again
+  Then tell user guess is invalid
+
+#exception
+Scenario: guessed correctly
+  Given user guessed the word correctly
+  When user makes another guess
+  Then tell user guess is invalid
+
+Feature: Start new round
+  As a user,
+  I want to start a new round,
+  To continue my game
+
+Scenario: start new round
+  Given a new game starts
+  And a previous round did not fail
+  Then start a new round
+
+#exception
+Scenario: no game started
+  When user starts a new round
+  But there's no game
+  Then user cannot start a new round
+
+#exception
+Scenario:
+  Given word is not guessed yet
+  When user want to start a new round
+  Then user cannot start a new round
