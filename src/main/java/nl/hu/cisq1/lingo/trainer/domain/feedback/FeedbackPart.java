@@ -1,4 +1,4 @@
-package nl.hu.cisq1.lingo.feedback;
+package nl.hu.cisq1.lingo.trainer.domain.feedback;
 
 public class FeedbackPart {
     private Character letter;
@@ -15,5 +15,10 @@ public class FeedbackPart {
 
     public Mark getMark() {
         return mark;
+    }
+
+    @Override
+    public String toString() {
+        return letter + " " + mark.name().toLowerCase();
     }
 }
