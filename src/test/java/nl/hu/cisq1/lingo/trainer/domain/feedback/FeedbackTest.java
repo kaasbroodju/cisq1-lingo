@@ -23,4 +23,79 @@ class FeedbackTest {
         ), Feedback.generateFeedback(new Word("hutspot"), new Word("hutspot")));
     }
 
+    @Test
+    @DisplayName("Word is guessed correctly when all letters are on the correct position")
+    void wordIsNotGuessed() {
+        assertEquals(List.of(
+                new FeedbackPart('h', Mark.CORRECT),
+                new FeedbackPart('u', Mark.CORRECT),
+                new FeedbackPart('d', Mark.INCORRECT),
+                new FeedbackPart('s', Mark.CORRECT),
+                new FeedbackPart('p', Mark.CORRECT),
+                new FeedbackPart('o', Mark.CORRECT),
+                new FeedbackPart('t', Mark.CORRECT)
+        ), Feedback.generateFeedback(new Word("hutspot"), new Word("hudspot")));
+    }
+
+    @Test
+    @DisplayName("Word is invalid when amount of letters does not match")
+    void guessIsInvalid() {
+        assertEquals(List.of(
+                new FeedbackPart('h', Mark.INVALID),
+                new FeedbackPart('u', Mark.INVALID),
+                new FeedbackPart('t', Mark.INVALID),
+                new FeedbackPart('s', Mark.INVALID),
+                new FeedbackPart('p', Mark.INVALID),
+                new FeedbackPart('o', Mark.INVALID),
+                new FeedbackPart('t', Mark.INVALID)
+        ), Feedback.generateFeedback(new Word("foo"), new Word("hutspot")));
+    }
+
+    @Test
+    @DisplayName("Word is invalid when amount of letters does not match")
+    void guessIsValid() {
+        assertEquals(List.of(
+                new FeedbackPart('b', Mark.INCORRECT),
+                new FeedbackPart('a', Mark.INCORRECT),
+                new FeedbackPart('r', Mark.INCORRECT)
+        ), Feedback.generateFeedback(new Word("foo"), new Word("bar")));
+    }
+
+    // todo naar static test
+    @Test
+    @DisplayName("Word is invalid when amount of letters does not match")
+    void guessIsAtDifferentLocation1() {
+        assertEquals(List.of(
+                new FeedbackPart('r', Mark.INCORRECT),
+                new FeedbackPart('o', Mark.CORRECT),
+                new FeedbackPart('o', Mark.DIFFERENTLOCATION),
+                new FeedbackPart('m', Mark.INCORRECT)
+        ), Feedback.generateFeedback(new Word("foto"), new Word("room")));
+    }
+
+    @Test
+    @DisplayName("Word is invalid when amount of letters does not match")
+    void guessIsAtDifferentLocation2() {
+        assertEquals(List.of(
+                new FeedbackPart('b', Mark.DIFFERENTLOCATION),
+                new FeedbackPart('a', Mark.DIFFERENTLOCATION),
+                new FeedbackPart('r', Mark.DIFFERENTLOCATION),
+                new FeedbackPart('f', Mark.DIFFERENTLOCATION),
+                new FeedbackPart('o', Mark.DIFFERENTLOCATION),
+                new FeedbackPart('o', Mark.DIFFERENTLOCATION)
+        ), Feedback.generateFeedback(new Word("foobar"), new Word("barfoo")));
+    }
+
+    @Test
+    @DisplayName("Word is invalid when amount of letters does not match")
+    void guessIsAtDifferentLocation3() {
+        assertEquals(List.of(
+                new FeedbackPart('r', Mark.CORRECT),
+                new FeedbackPart('o', Mark.CORRECT),
+                new FeedbackPart('e', Mark.DIFFERENTLOCATION),
+                new FeedbackPart('o', Mark.DIFFERENTLOCATION),
+                new FeedbackPart('o', Mark.INCORRECT)
+        ), Feedback.generateFeedback(new Word("rooie"), new Word("roeoo")));
+    }
+
 }
