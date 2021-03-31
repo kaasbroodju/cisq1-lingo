@@ -7,10 +7,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -116,7 +114,7 @@ class FeedbackTest {
         return Stream.of(
                 Arguments.of(   "f.....",
                         new Word("foobar"),
-                        new ArrayList(Collections.singleton(new Feedback(Arrays.asList(
+                        new ArrayList(Arrays.asList(new Feedback(Arrays.asList(
                                 new FeedbackPart('f', Mark.INVALID),
                                 new FeedbackPart('o', Mark.INVALID),
                                 new FeedbackPart('o', Mark.INVALID),
@@ -126,13 +124,61 @@ class FeedbackTest {
                 ),
                 Arguments.of(   "f.....",
                         new Word("foobar"),
-                        new ArrayList(Collections.singleton(new Feedback(Arrays.asList(
-                                new FeedbackPart('f', Mark.INVALID),
-                                new FeedbackPart('o', Mark.INVALID),
-                                new FeedbackPart('o', Mark.INVALID),
-                                new FeedbackPart('b', Mark.INVALID),
-                                new FeedbackPart('a', Mark.INVALID),
-                                new FeedbackPart('r', Mark.INVALID)))))
+                        new ArrayList(Arrays.asList(
+                            new Feedback(Arrays.asList(
+                                new FeedbackPart('f', Mark.INCORRECT),
+                                new FeedbackPart('o', Mark.INCORRECT),
+                                new FeedbackPart('o', Mark.INCORRECT),
+                                new FeedbackPart('b', Mark.INCORRECT),
+                                new FeedbackPart('a', Mark.INCORRECT),
+                                new FeedbackPart('r', Mark.INCORRECT)
+                            ))
+                        ))
+                ),
+                Arguments.of(   "foo",
+                        new Word("foo"),
+                        new ArrayList(Arrays.asList(
+                                new Feedback(Arrays.asList(
+                                        new FeedbackPart('f', Mark.CORRECT),
+                                        new FeedbackPart('o', Mark.CORRECT),
+                                        new FeedbackPart('o', Mark.CORRECT)
+                                )),
+                                new Feedback(Arrays.asList(
+                                        new FeedbackPart('f', Mark.INCORRECT),
+                                        new FeedbackPart('o', Mark.INCORRECT),
+                                        new FeedbackPart('o', Mark.INCORRECT)
+                                ))
+                        ))
+                ),
+                Arguments.of(   "foo",
+                        new Word("foo"),
+                        new ArrayList(Arrays.asList(
+                                new Feedback(Arrays.asList(
+                                        new FeedbackPart('f', Mark.CORRECT),
+                                        new FeedbackPart('o', Mark.CORRECT),
+                                        new FeedbackPart('r', Mark.INCORRECT)
+                                )),
+                                new Feedback(Arrays.asList(
+                                        new FeedbackPart('f', Mark.CORRECT),
+                                        new FeedbackPart('o', Mark.CORRECT),
+                                        new FeedbackPart('o', Mark.CORRECT)
+                                )),
+                                new Feedback(Arrays.asList(
+                                        new FeedbackPart('f', Mark.INVALID),
+                                        new FeedbackPart('o', Mark.INVALID),
+                                        new FeedbackPart('o', Mark.INVALID)
+                                ))
+                        ))
+                ),
+                Arguments.of(   "fo.",
+                        new Word("foo"),
+                        new ArrayList(Arrays.asList(
+                                new Feedback(Arrays.asList(
+                                        new FeedbackPart('o', Mark.DIFFERENTLOCATION),
+                                        new FeedbackPart('o', Mark.CORRECT),
+                                        new FeedbackPart('f', Mark.DIFFERENTLOCATION)
+                                ))
+                        ))
                 )
         );
     }
