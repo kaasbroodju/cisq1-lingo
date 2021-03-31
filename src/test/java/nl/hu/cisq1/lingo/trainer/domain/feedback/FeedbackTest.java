@@ -3,8 +3,12 @@ package nl.hu.cisq1.lingo.trainer.domain.feedback;
 import nl.hu.cisq1.lingo.words.domain.Word;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -96,6 +100,19 @@ class FeedbackTest {
                 new FeedbackPart('o', Mark.DIFFERENTLOCATION),
                 new FeedbackPart('o', Mark.INCORRECT)
         ), Feedback.generateFeedback(new Word("rooie"), new Word("roeoo")));
+    }
+
+    @ParameterizedTest
+    @DisplayName("Show only letters that have been guessed correctly")
+    @MethodSource("provideFeedbackForGiveHint")
+    void giveHints(String expected, Word solution, List<Feedback> guesses) {
+        assertEquals(expected, Feedback.giveHint(solution, guesses));
+    }
+
+    private static Stream<Arguments> provideFeedbackForGiveHint() {
+        return Stream.of(
+                Arguments.of("foobar", new Word("foobar"), List.of(new Feedback()))
+        );
     }
 
 }

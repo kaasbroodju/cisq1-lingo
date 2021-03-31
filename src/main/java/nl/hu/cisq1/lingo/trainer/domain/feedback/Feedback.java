@@ -44,11 +44,10 @@ public class Feedback extends ArrayList<FeedbackPart> {
             }
         }
 
-
         return output;
     }
 
-    public static void giveHint(Word solution, List<Feedback> guesses) {
-
+    public static String giveHint(Word solution, List<Feedback> guesses) {
+        return "";
     }
 }
