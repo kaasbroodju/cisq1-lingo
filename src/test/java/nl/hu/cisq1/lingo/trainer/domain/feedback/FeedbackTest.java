@@ -66,42 +66,50 @@ class FeedbackTest {
         ), Feedback.generateFeedback(new Word("foo"), new Word("bar")));
     }
 
-    // todo naar static test
-    @Test
-    @DisplayName("Word is invalid when amount of letters does not match")
-    void guessIsAtDifferentLocation1() {
-        assertEquals(List.of(
-                new FeedbackPart('r', Mark.INCORRECT),
-                new FeedbackPart('o', Mark.CORRECT),
-                new FeedbackPart('o', Mark.DIFFERENTLOCATION),
-                new FeedbackPart('m', Mark.INCORRECT)
-        ), Feedback.generateFeedback(new Word("foto"), new Word("room")));
+    @ParameterizedTest
+    @DisplayName("Show if letter is in the word but not on the correct spot")
+    @MethodSource("provideFeedbackForGuessIsAtDifferentLocation")
+    void guessIsAtDifferentLocation(List expected, Word answer, Word guess) {
+        assertEquals(new Feedback(expected), Feedback.generateFeedback(answer, guess));
     }
 
-    @Test
-    @DisplayName("Word is invalid when amount of letters does not match")
-    void guessIsAtDifferentLocation2() {
-        assertEquals(List.of(
-                new FeedbackPart('b', Mark.DIFFERENTLOCATION),
-                new FeedbackPart('a', Mark.DIFFERENTLOCATION),
-                new FeedbackPart('r', Mark.DIFFERENTLOCATION),
-                new FeedbackPart('f', Mark.DIFFERENTLOCATION),
-                new FeedbackPart('o', Mark.DIFFERENTLOCATION),
-                new FeedbackPart('o', Mark.DIFFERENTLOCATION)
-        ), Feedback.generateFeedback(new Word("foobar"), new Word("barfoo")));
+    private static Stream<Arguments> provideFeedbackForGuessIsAtDifferentLocation() {
+        return Stream.of(
+                Arguments.of(List.of(
+                    new FeedbackPart('r', Mark.INCORRECT),
+                    new FeedbackPart('o', Mark.CORRECT),
+                    new FeedbackPart('o', Mark.DIFFERENTLOCATION),
+                    new FeedbackPart('m', Mark.INCORRECT)),
+                        new Word("foto"),
+                        new Word("room")
+                ),
+                Arguments.of(List.of(
+                    new FeedbackPart('b', Mark.DIFFERENTLOCATION),
+                    new FeedbackPart('a', Mark.DIFFERENTLOCATION),
+                    new FeedbackPart('r', Mark.DIFFERENTLOCATION),
+                    new FeedbackPart('f', Mark.DIFFERENTLOCATION),
+                    new FeedbackPart('o', Mark.DIFFERENTLOCATION),
+                    new FeedbackPart('o', Mark.DIFFERENTLOCATION)),
+                        new Word("foobar"),
+                        new Word("barfoo")
+                ),
+                Arguments.of(List.of(
+                    new FeedbackPart('r', Mark.CORRECT),
+                    new FeedbackPart('o', Mark.CORRECT),
+                    new FeedbackPart('e', Mark.DIFFERENTLOCATION),
+                    new FeedbackPart('o', Mark.DIFFERENTLOCATION),
+                    new FeedbackPart('o', Mark.INCORRECT)),
+                        new Word("rooie"),
+                        new Word("roeoo")
+                )
+        );
     }
 
-    @Test
-    @DisplayName("Word is invalid when amount of letters does not match")
-    void guessIsAtDifferentLocation3() {
-        assertEquals(List.of(
-                new FeedbackPart('r', Mark.CORRECT),
-                new FeedbackPart('o', Mark.CORRECT),
-                new FeedbackPart('e', Mark.DIFFERENTLOCATION),
-                new FeedbackPart('o', Mark.DIFFERENTLOCATION),
-                new FeedbackPart('o', Mark.INCORRECT)
-        ), Feedback.generateFeedback(new Word("rooie"), new Word("roeoo")));
-    }
+
+
+
+
+
 
     @ParameterizedTest
     @DisplayName("Show only letters that have been guessed correctly")
