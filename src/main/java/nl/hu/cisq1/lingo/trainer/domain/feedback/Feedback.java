@@ -32,16 +32,17 @@ public class Feedback extends ArrayList<FeedbackPart> {
         }
 
         // check if a spot is on a different location
-        int index;
-        for (FeedbackPart feedbackPart : output) {
-            index = leftOverCharacters.indexOf(feedbackPart.getLetter());
-            System.out.println(leftOverCharacters);
-            if (index != -1 && !(feedbackPart.getMark() == Mark.CORRECT)) {
-                leftOverCharacters = leftOverCharacters.replaceFirst("" + feedbackPart.getLetter(), "");
-                feedbackPart.setMark(Mark.DIFFERENTLOCATION);
+        if (leftOverCharacters.length() > 1) {
+            for (int i = 0; i < output.size(); i++) {
+                FeedbackPart part = output.get(i);
+                if (part.getMark() == Mark.CORRECT) continue;
+                if (leftOverCharacters.indexOf(part.getLetter()) != -1) {
+                    leftOverCharacters = leftOverCharacters.replaceFirst(
+                            String.valueOf(part.getLetter()), "");
+                    output.set(i, new FeedbackPart(part.getLetter(), Mark.DIFFERENTLOCATION));
+                }
             }
         }
-        // owo
 
 
         return output;

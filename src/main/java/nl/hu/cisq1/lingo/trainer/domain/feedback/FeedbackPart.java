@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import java.util.Objects;
 
-@Setter @Getter
+@Getter
 public class FeedbackPart {
     private Character letter;
     private Mark mark;
