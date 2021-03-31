@@ -5,6 +5,18 @@ import nl.hu.cisq1.lingo.words.domain.Word;
 import java.util.*;
 
 public class Feedback extends ArrayList<FeedbackPart> {
+
+    public Feedback(int initialCapacity) {
+        super(initialCapacity);
+    }
+
+    public Feedback() {
+    }
+
+    public Feedback(Collection<? extends FeedbackPart> c) {
+        super(c);
+    }
+
     public static Feedback generateFeedback(Word solution, Word guess) {
         Feedback output = new Feedback();
 
@@ -48,6 +60,17 @@ public class Feedback extends ArrayList<FeedbackPart> {
     }
 
     public static String giveHint(Word solution, List<Feedback> guesses) {
-        return "";
+        String output = String.valueOf(solution.getValue().charAt(0));
+        for (Integer i = 1; i < solution.getLength(); i++) {
+            Integer index = i;
+            if (guesses.stream().anyMatch(feedbackParts -> feedbackParts.get(index).getMark() == Mark.CORRECT)
+            ) {
+                output += solution.getValue().indexOf(i);
+            } else {
+                output += ".";
+            }
+        }
+
+        return output;
     }
 }

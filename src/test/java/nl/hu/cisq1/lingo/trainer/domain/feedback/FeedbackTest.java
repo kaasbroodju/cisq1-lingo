@@ -7,6 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -111,7 +114,26 @@ class FeedbackTest {
 
     private static Stream<Arguments> provideFeedbackForGiveHint() {
         return Stream.of(
-                Arguments.of("foobar", new Word("foobar"), List.of(new Feedback()))
+                Arguments.of(   "f.....",
+                        new Word("foobar"),
+                        new ArrayList(Collections.singleton(new Feedback(Arrays.asList(
+                                new FeedbackPart('f', Mark.INVALID),
+                                new FeedbackPart('o', Mark.INVALID),
+                                new FeedbackPart('o', Mark.INVALID),
+                                new FeedbackPart('b', Mark.INVALID),
+                                new FeedbackPart('a', Mark.INVALID),
+                                new FeedbackPart('r', Mark.INVALID)))))
+                ),
+                Arguments.of(   "f.....",
+                        new Word("foobar"),
+                        new ArrayList(Collections.singleton(new Feedback(Arrays.asList(
+                                new FeedbackPart('f', Mark.INVALID),
+                                new FeedbackPart('o', Mark.INVALID),
+                                new FeedbackPart('o', Mark.INVALID),
+                                new FeedbackPart('b', Mark.INVALID),
+                                new FeedbackPart('a', Mark.INVALID),
+                                new FeedbackPart('r', Mark.INVALID)))))
+                )
         );
     }
 
