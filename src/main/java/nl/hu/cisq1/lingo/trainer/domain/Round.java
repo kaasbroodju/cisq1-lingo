@@ -2,6 +2,7 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 import lombok.Getter;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.Feedback;
+import nl.hu.cisq1.lingo.trainer.domain.feedback.Mark;
 import nl.hu.cisq1.lingo.words.domain.Word;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Round {
     }
 
     public boolean isFailed() {
-        return false;
+        return feedback.stream().filter(feedbackPart -> !feedbackPart.stream().anyMatch(feedbackParts -> feedbackParts.getMark() == Mark.INVALID)).count() >= GUESSINGLIMIT;
     }
 
     public boolean isOngoing() {

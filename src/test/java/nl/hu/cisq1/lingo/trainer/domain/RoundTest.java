@@ -72,10 +72,9 @@ class RoundTest {
 
     @Test
     void isFailed() {
-        Round round = new Round(new Word("foobar"));
-
+        Round round = new Round(new Word("stampot"));
         for (int i = 0; i < 6; i++) {
-            round.addGuess(new Word("lasagne"));
+            round.addGuess(new Word("hutspot"));
         }
 
         assertTrue(round.isFailed());
@@ -84,7 +83,6 @@ class RoundTest {
     @Test
     void isNotFailed() {
         Round round = new Round(new Word("foobar"));
-
         for (int i = 0; i < 6; i++) {
             round.addGuess(new Word("pizza"));
         }
@@ -92,11 +90,25 @@ class RoundTest {
         assertFalse(round.isFailed());
     }
 
-//    @Test
-//    void isOngoing() {
-//        Round round = new Round(new Word("foobar"));
-//
-//        assertEquals();
-//    }
+    @Test
+    void isOngoing() {
+        Round round = new Round(new Word("foobar"));
+
+        assertEquals();
+    }
+
+    @Test
+    void isOngoingWordIsGuessed() {
+        Round round = new Round(new Word("foobar"));
+
+        assertEquals();
+    }
+
+    @Test
+    void isOngoingRoundFailed() {
+        Round round = new Round(new Word("foobar"));
+
+        assertEquals();
+    }
 
 }
