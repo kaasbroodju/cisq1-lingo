@@ -118,4 +118,15 @@ class RoundTest {
         assertFalse(round.isOngoing());
     }
 
+    @Test
+    @DisplayName("round is not ongoing when the word is not guessed and all legit attempts are used")
+    void visibleSolution() {
+        Round round = new Round(new Word("stampot"));
+
+        round.addGuess(new Word("hutspot"));
+
+
+        assertEquals("....pot", round.visibleSolution());
+    }
+
 }
