@@ -71,6 +71,7 @@ class RoundTest {
     }
 
     @Test
+    @DisplayName("round is failed after all legit guessing tries have been used")
     void isFailed() {
         Round round = new Round(new Word("stampot"));
         for (int i = 0; i < 6; i++) {
@@ -81,6 +82,7 @@ class RoundTest {
     }
 
     @Test
+    @DisplayName("round is not failed if there's invalid guesses")
     void isNotFailed() {
         Round round = new Round(new Word("foobar"));
         for (int i = 0; i < 6; i++) {
@@ -91,12 +93,14 @@ class RoundTest {
     }
 
     @Test
+    @DisplayName("round is ongoing when round is created")
     void isOngoing() {
         assertTrue(new Round(new Word("foobar")).isOngoing());
     }
 
     @Test
-    void isOngoingWordIsGuessed() {
+    @DisplayName("round is not ongoing when the word is guessed correctly")
+    void isNotOngoingWordIsGuessed() {
         Round round = new Round(new Word("foobar"));
         round.addGuess(new Word("foobar"));
 
@@ -104,7 +108,8 @@ class RoundTest {
     }
 
     @Test
-    void isOngoingRoundFailed() {
+    @DisplayName("round is not ongoing when the word is not guessed and all legit attempts are used")
+    void isNotOngoingRoundFailed() {
         Round round = new Round(new Word("stampot"));
         for (int i = 0; i < 6; i++) {
             round.addGuess(new Word("hutspot"));
