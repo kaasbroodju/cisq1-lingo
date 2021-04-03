@@ -29,7 +29,10 @@ public class Round {
     }
 
     public boolean isFailed() {
-        return feedback.stream().filter(feedbackPart -> !feedbackPart.stream().anyMatch(feedbackParts -> feedbackParts.getMark() == Mark.INVALID)).count() >= GUESSINGLIMIT;
+        return feedback.stream()
+                .filter(feedbackPart -> !feedbackPart.stream()
+                        .anyMatch(feedbackParts -> feedbackParts.getMark() == Mark.INVALID)
+                ).count() >= GUESSINGLIMIT;
     }
 
     public boolean isOngoing() {

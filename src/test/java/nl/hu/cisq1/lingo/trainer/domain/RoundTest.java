@@ -92,23 +92,25 @@ class RoundTest {
 
     @Test
     void isOngoing() {
-        Round round = new Round(new Word("foobar"));
-
-        assertEquals();
+        assertTrue(new Round(new Word("foobar")).isOngoing());
     }
 
     @Test
     void isOngoingWordIsGuessed() {
         Round round = new Round(new Word("foobar"));
+        round.addGuess(new Word("foobar"));
 
-        assertEquals();
+        assertFalse(round.isOngoing());
     }
 
     @Test
     void isOngoingRoundFailed() {
-        Round round = new Round(new Word("foobar"));
+        Round round = new Round(new Word("stampot"));
+        for (int i = 0; i < 6; i++) {
+            round.addGuess(new Word("hutspot"));
+        }
 
-        assertEquals();
+        assertFalse(round.isOngoing());
     }
 
 }
