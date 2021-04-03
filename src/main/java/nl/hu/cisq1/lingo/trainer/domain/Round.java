@@ -35,7 +35,10 @@ public class Round {
                 ).count() >= GUESSINGLIMIT;
     }
 
+
+
     public boolean isOngoing() {
-        return false;
+        if (feedback.contains(Feedback.correct(solution))) return false;
+        return !isFailed();
     }
 }
