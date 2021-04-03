@@ -18,6 +18,7 @@ public class Round {
         this.solution = solution;
     }
 
+    // todo test schrijven voor als round over is kan je geen guesses meer toevoegen
     public Feedback addGuess(Word guess) {
         Feedback guessFeedback = Feedback.generateFeedback(solution, guess);
         this.feedback.add(guessFeedback);
