@@ -25,7 +25,7 @@ public class Round {
     }
 
     public String visibleSolution() {
-        return "";
+        return Feedback.giveHint(solution, feedback);
     }
 
     public boolean isFailed() {

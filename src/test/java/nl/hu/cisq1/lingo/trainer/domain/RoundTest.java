@@ -119,14 +119,14 @@ class RoundTest {
     }
 
     @Test
-    @DisplayName("round is not ongoing when the word is not guessed and all legit attempts are used")
+    @DisplayName("always show first letter and all the letters guessed on the correct spot")
     void visibleSolution() {
         Round round = new Round(new Word("stampot"));
 
         round.addGuess(new Word("hutspot"));
 
 
-        assertEquals("....pot", round.visibleSolution());
+        assertEquals("s...pot", round.visibleSolution());
     }
 
 }
