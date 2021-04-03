@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 public class Round {
-    private static final int GUESSINGLIMIT = 5;
+    private static final int GUESSINGLIMIT = 6;
     private Word solution;
     private List<Feedback> feedback = new ArrayList<>();
 

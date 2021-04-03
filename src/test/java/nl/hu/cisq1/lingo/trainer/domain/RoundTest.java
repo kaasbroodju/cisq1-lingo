@@ -70,4 +70,33 @@ class RoundTest {
         );
     }
 
+    @Test
+    void isFailed() {
+        Round round = new Round(new Word("foobar"));
+
+        for (int i = 0; i < 6; i++) {
+            round.addGuess(new Word("lasagne"));
+        }
+
+        assertTrue(round.isFailed());
+    }
+
+    @Test
+    void isNotFailed() {
+        Round round = new Round(new Word("foobar"));
+
+        for (int i = 0; i < 6; i++) {
+            round.addGuess(new Word("pizza"));
+        }
+
+        assertFalse(round.isFailed());
+    }
+
+//    @Test
+//    void isOngoing() {
+//        Round round = new Round(new Word("foobar"));
+//
+//        assertEquals();
+//    }
+
 }
