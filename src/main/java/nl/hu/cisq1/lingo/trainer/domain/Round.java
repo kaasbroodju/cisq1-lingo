@@ -1,10 +1,12 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import lombok.Getter;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.Feedback;
 import nl.hu.cisq1.lingo.words.domain.Word;
 
 import java.util.List;
 
+@Getter
 public class Round {
     private static final int GUESSINGLIMIT = 5;
     private Word solution;

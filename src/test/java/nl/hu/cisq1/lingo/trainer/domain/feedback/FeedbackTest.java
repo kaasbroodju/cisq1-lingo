@@ -17,15 +17,7 @@ class FeedbackTest {
     @Test
     @DisplayName("Word is guessed correctly when all letters are on the correct position")
     void wordIsGuessed() {
-        assertEquals(List.of(
-                new FeedbackPart('h', Mark.CORRECT),
-                new FeedbackPart('u', Mark.CORRECT),
-                new FeedbackPart('t', Mark.CORRECT),
-                new FeedbackPart('s', Mark.CORRECT),
-                new FeedbackPart('p', Mark.CORRECT),
-                new FeedbackPart('o', Mark.CORRECT),
-                new FeedbackPart('t', Mark.CORRECT)
-        ), Feedback.generateFeedback(new Word("hutspot"), new Word("hutspot")));
+        assertEquals(Feedback.correct(new Word("hutspot")), Feedback.generateFeedback(new Word("hutspot"), new Word("hutspot")));
     }
 
     @Test
@@ -45,25 +37,13 @@ class FeedbackTest {
     @Test
     @DisplayName("Word is invalid when amount of letters does not match")
     void guessIsInvalid() {
-        assertEquals(List.of(
-                new FeedbackPart('h', Mark.INVALID),
-                new FeedbackPart('u', Mark.INVALID),
-                new FeedbackPart('t', Mark.INVALID),
-                new FeedbackPart('s', Mark.INVALID),
-                new FeedbackPart('p', Mark.INVALID),
-                new FeedbackPart('o', Mark.INVALID),
-                new FeedbackPart('t', Mark.INVALID)
-        ), Feedback.generateFeedback(new Word("foo"), new Word("hutspot")));
+        assertEquals(Feedback.invalid(new Word("hutspot")), Feedback.generateFeedback(new Word("foo"), new Word("hutspot")));
     }
 
     @Test
     @DisplayName("Word is invalid when amount of letters does not match")
     void guessIsValid() {
-        assertEquals(List.of(
-                new FeedbackPart('b', Mark.INCORRECT),
-                new FeedbackPart('a', Mark.INCORRECT),
-                new FeedbackPart('r', Mark.INCORRECT)
-        ), Feedback.generateFeedback(new Word("foo"), new Word("bar")));
+        assertEquals(Feedback.incorrect(new Word("bar")), Feedback.generateFeedback(new Word("foo"), new Word("bar")));
     }
 
     @ParameterizedTest
@@ -105,12 +85,6 @@ class FeedbackTest {
         );
     }
 
-
-
-
-
-
-
     @ParameterizedTest
     @DisplayName("Show only letters that have been guessed correctly")
     @MethodSource("provideFeedbackForGiveHint")
@@ -122,41 +96,21 @@ class FeedbackTest {
         return Stream.of(
                 Arguments.of(   "f.....",
                         new Word("foobar"),
-                        new ArrayList(Arrays.asList(new Feedback(Arrays.asList(
-                                new FeedbackPart('f', Mark.INVALID),
-                                new FeedbackPart('o', Mark.INVALID),
-                                new FeedbackPart('o', Mark.INVALID),
-                                new FeedbackPart('b', Mark.INVALID),
-                                new FeedbackPart('a', Mark.INVALID),
-                                new FeedbackPart('r', Mark.INVALID)))))
+                        new ArrayList(Arrays.asList(Feedback.invalid(new Word("foobar"))))
                 ),
                 Arguments.of(   "f.....",
                         new Word("foobar"),
                         new ArrayList(Arrays.asList(
-                            new Feedback(Arrays.asList(
-                                new FeedbackPart('f', Mark.INCORRECT),
-                                new FeedbackPart('o', Mark.INCORRECT),
-                                new FeedbackPart('o', Mark.INCORRECT),
-                                new FeedbackPart('b', Mark.INCORRECT),
-                                new FeedbackPart('a', Mark.INCORRECT),
-                                new FeedbackPart('r', Mark.INCORRECT)
-                            ))
+                            Feedback.incorrect(new Word("foobar"))
                         ))
                 ),
                 Arguments.of(   "foo",
                         new Word("foo"),
                         new ArrayList(Arrays.asList(
-                                new Feedback(Arrays.asList(
-                                        new FeedbackPart('f', Mark.CORRECT),
-                                        new FeedbackPart('o', Mark.CORRECT),
-                                        new FeedbackPart('o', Mark.CORRECT)
-                                )),
-                                new Feedback(Arrays.asList(
-                                        new FeedbackPart('f', Mark.INCORRECT),
-                                        new FeedbackPart('o', Mark.INCORRECT),
-                                        new FeedbackPart('o', Mark.INCORRECT)
+                                Feedback.correct(new Word("foo")),
+                                Feedback.incorrect(new Word("foo"))
+
                                 ))
-                        ))
                 ),
                 Arguments.of(   "foo",
                         new Word("foo"),
@@ -166,16 +120,8 @@ class FeedbackTest {
                                         new FeedbackPart('o', Mark.CORRECT),
                                         new FeedbackPart('r', Mark.INCORRECT)
                                 )),
-                                new Feedback(Arrays.asList(
-                                        new FeedbackPart('f', Mark.CORRECT),
-                                        new FeedbackPart('o', Mark.CORRECT),
-                                        new FeedbackPart('o', Mark.CORRECT)
-                                )),
-                                new Feedback(Arrays.asList(
-                                        new FeedbackPart('f', Mark.INVALID),
-                                        new FeedbackPart('o', Mark.INVALID),
-                                        new FeedbackPart('o', Mark.INVALID)
-                                ))
+                                Feedback.correct(new Word("foo")),
+                                Feedback.invalid(new Word("foo"))
                         ))
                 ),
                 Arguments.of(   "fo.",

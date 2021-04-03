@@ -9,27 +9,18 @@ import java.util.stream.IntStream;
 
 public class Feedback extends ArrayList<FeedbackPart> {
 
-    public Feedback(int initialCapacity) {
-        super(initialCapacity);
-    }
-
-    public Feedback() {
-    }
+    public Feedback() {}
 
     public Feedback(Collection<? extends FeedbackPart> c) {
         super(c);
     }
 
+
     public static Feedback generateFeedback(Word solution, Word guess) {
         Feedback output = new Feedback();
 
         // return invalid list when word length does not fit.
-        if (solution.getLength() != guess.getLength()) {
-            for (char c : guess.getValue().toCharArray()) {
-                output.add(new FeedbackPart(c, Mark.INVALID));
-            }
-            return output;
-        }
+        if (solution.getLength() != guess.getLength()) return Feedback.invalid(guess);
 
         String leftOverCharacters = "";
 
@@ -67,5 +58,25 @@ public class Feedback extends ArrayList<FeedbackPart> {
                 .range(1, solution.getLength())
                 .mapToObj(i -> guesses.stream().anyMatch(feedbackParts -> feedbackParts.get(i).getMark() == Mark.CORRECT) ? String.valueOf(solution.getValue().charAt(i)) : ".")
                 .collect(Collectors.joining());
+    }
+
+    private static Feedback generateAllMark(Word word, Mark mark) {
+        return new Feedback(IntStream
+                .range(0, word.getLength())
+                .mapToObj(i -> new FeedbackPart(word.getValue().charAt(i), mark))
+                .collect(Collectors.toList()));
+
+    }
+
+    public static Feedback correct(Word word) {
+        return generateAllMark(word, Mark.CORRECT);
+    }
+
+    public static Feedback incorrect(Word word) {
+        return generateAllMark(word, Mark.INCORRECT);
+    }
+
+    public static Feedback invalid(Word word) {
+        return generateAllMark(word, Mark.INVALID);
     }
 }

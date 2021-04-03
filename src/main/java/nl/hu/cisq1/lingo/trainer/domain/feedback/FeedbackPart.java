@@ -35,9 +35,4 @@ public class FeedbackPart {
         FeedbackPart that = (FeedbackPart) o;
         return Objects.equals(letter, that.letter) && mark == that.mark;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(letter, mark);
-    }
 }
