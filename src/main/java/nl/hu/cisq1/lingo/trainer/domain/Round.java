@@ -4,20 +4,23 @@ import lombok.Getter;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.Feedback;
 import nl.hu.cisq1.lingo.words.domain.Word;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class Round {
     private static final int GUESSINGLIMIT = 5;
     private Word solution;
-    private List<Feedback> feedback;
+    private List<Feedback> feedback = new ArrayList<>();
 
     public Round(Word solution) {
         this.solution = solution;
     }
 
     public Feedback addGuess(Word guess) {
-        return null;
+        Feedback guessFeedback = Feedback.generateFeedback(solution, guess);
+        this.feedback.add(guessFeedback);
+        return guessFeedback;
     }
 
     public String visibleSolution() {
