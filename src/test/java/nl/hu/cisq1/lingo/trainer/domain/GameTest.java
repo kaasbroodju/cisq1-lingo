@@ -13,7 +13,11 @@ class GameTest {
     @Test
     @DisplayName("add round to game")
     void addRound() {
-        assertTrue(new Game().addRound(new Round(new Word("foobar"))));
+        Game game = new Game();
+        Word solution = new Word("foobar");
+        assertTrue(game.addRound(new Round(solution)));
+        game.getCurrentRound().addGuess(solution);
+        assertTrue(game.addRound(new Round(solution)));
     }
 
     @Test
@@ -29,12 +33,12 @@ class GameTest {
     @DisplayName("unable to add round if a round is failed")
     void addRoundFailed() {
         Game game = new Game();
-        game.addRound(new Round(new Word("foobar")));
+        game.addRound(new Round(new Word("stampot")));
         for (int i = 0; i < 6; i++) {
             game.getCurrentRound().addGuess(new Word("hutspot"));
         }
 
-        assertThrows(GameOverException.class, () -> game.addRound(new Round(new Word("foobar"))));
+        assertThrows(GameOverException.class, () -> game.addRound(new Round(new Word("stampot"))));
     }
 
 }

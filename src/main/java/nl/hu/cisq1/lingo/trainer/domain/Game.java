@@ -1,6 +1,8 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 import lombok.Getter;
+import nl.hu.cisq1.lingo.trainer.domain.exceptions.GameOverException;
+import nl.hu.cisq1.lingo.trainer.domain.exceptions.RoundStillOngoingException;
 import nl.hu.cisq1.lingo.trainer.domain.pointcalculator.PointCalculatorStrategy;
 import nl.hu.cisq1.lingo.trainer.domain.pointcalculator.TraditionalPointCalculatorStrategy;
 
@@ -14,6 +16,8 @@ public class Game {
     private List<Round> rounds = new ArrayList<>();
 
     public boolean addRound(Round round) {
+        if (rounds.stream().anyMatch(Round::isFailed)) throw new GameOverException();
+        if (rounds.stream().anyMatch(Round::isOngoing)) throw new RoundStillOngoingException();
         return rounds.add(round);
     }
 
