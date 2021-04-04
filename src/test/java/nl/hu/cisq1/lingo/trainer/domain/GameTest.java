@@ -41,4 +41,19 @@ class GameTest {
         assertThrows(GameOverException.class, () -> game.addRound(new Round(new Word("stampot"))));
     }
 
+    @Test
+    @DisplayName("display size of next round word")
+    void nextWordSize() {
+        Game game = new Game();
+        assertEquals(5, game.nextWordSize());
+        game.addRound(new Round(new Word("fooba")));
+        assertEquals(6, game.nextWordSize());
+        game.getCurrentRound().addGuess(new Word("fooba"));
+        game.addRound(new Round(new Word("foobar")));
+        assertEquals(7, game.nextWordSize());
+        game.getCurrentRound().addGuess(new Word("foobar"));
+        game.addRound(new Round(new Word("foobars")));
+        assertEquals(5, game.nextWordSize());
+
+    }
 }

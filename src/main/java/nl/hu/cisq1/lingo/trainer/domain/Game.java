@@ -14,6 +14,8 @@ public class Game {
     private int points;
     private static PointCalculatorStrategy pointCalculator = new TraditionalPointCalculatorStrategy();
     private List<Round> rounds = new ArrayList<>();
+    private static int startWordSize = 5;
+    private static int amountOfWordSizeIncreases = 3;
 
     public boolean addRound(Round round) {
         if (rounds.stream().anyMatch(Round::isFailed)) throw new GameOverException();
@@ -23,5 +25,9 @@ public class Game {
 
     public Round getCurrentRound() {
         return rounds.get(rounds.size() - 1);
+    }
+
+    public int nextWordSize() {
+        return startWordSize + (rounds.size() % amountOfWordSizeIncreases);
     }
 }
