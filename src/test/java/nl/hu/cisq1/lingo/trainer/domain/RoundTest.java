@@ -1,5 +1,6 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import nl.hu.cisq1.lingo.trainer.domain.exceptions.GameOverException;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.Feedback;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.FeedbackPart;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.Mark;
@@ -68,6 +69,18 @@ class RoundTest {
                         new Word("hutspot")
                 )
         );
+    }
+
+    @Test
+    @DisplayName("cannot make a guess when round is over")
+    void addGuessAfterRoundIsOver() {
+        Round round = new Round(new Word("stampot"));
+        round.addGuess(new Word("stampot"));
+
+
+        assertFalse(round.isOngoing());
+
+        assertThrows(GameOverException.class, () -> round.addGuess(new Word("hutspot")));
     }
 
     @Test

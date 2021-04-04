@@ -1,6 +1,7 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 import lombok.Getter;
+import nl.hu.cisq1.lingo.trainer.domain.exceptions.GameOverException;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.Feedback;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.Mark;
 import nl.hu.cisq1.lingo.words.domain.Word;
@@ -20,6 +21,7 @@ public class Round {
 
     // todo test schrijven voor als round over is kan je geen guesses meer toevoegen
     public Feedback addGuess(Word guess) {
+        if (!isOngoing()) throw new GameOverException();
         Feedback guessFeedback = Feedback.generateFeedback(solution, guess);
         this.feedback.add(guessFeedback);
         return guessFeedback;
