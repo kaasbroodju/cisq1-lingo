@@ -56,4 +56,18 @@ class GameTest {
         assertEquals(5, game.nextWordSize());
 
     }
+
+    @Test
+    @DisplayName("get amount of points scored")
+    void getPoints() {
+        Game game = new Game();
+        game.addRound(new Round(new Word("hutspot")));
+        game.getCurrentRound().addGuess(new Word("hutspot"));
+        game.addRound(new Round(new Word("hutspot")));
+        game.getCurrentRound().addGuess(new Word("hutspot"));
+
+        assertEquals(50, game.getPoints());
+
+
+    }
 }

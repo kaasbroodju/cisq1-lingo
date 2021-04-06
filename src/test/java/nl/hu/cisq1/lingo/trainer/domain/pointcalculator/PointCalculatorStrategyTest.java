@@ -36,7 +36,7 @@ class PointCalculatorStrategyTest {
 
     private static Stream<Arguments> provideGuessesForAddGuess() {
         return Stream.of(
-                Arguments.of(5, new TraditionalPointCalculatorStrategy())
+                Arguments.of(15, new TraditionalPointCalculatorStrategy())
         );
     }
 

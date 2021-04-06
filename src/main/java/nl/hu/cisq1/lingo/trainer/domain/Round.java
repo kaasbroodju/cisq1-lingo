@@ -12,14 +12,13 @@ import java.util.List;
 @Getter
 public class Round {
     private static final int GUESSINGLIMIT = 6;
-    private Word solution;
+    private final Word solution;
     private List<Feedback> feedback = new ArrayList<>();
 
     public Round(Word solution) {
         this.solution = solution;
     }
 
-    // todo test schrijven voor als round over is kan je geen guesses meer toevoegen
     public Feedback addGuess(Word guess) {
         if (!isOngoing()) throw new GameOverException();
         Feedback guessFeedback = Feedback.generateFeedback(solution, guess);
@@ -37,8 +36,6 @@ public class Round {
                         .anyMatch(feedbackParts -> feedbackParts.getMark() == Mark.INVALID)
                 ).count() >= GUESSINGLIMIT;
     }
-
-
 
     public boolean isOngoing() {
         if (feedback.contains(Feedback.correct(solution))) return false;

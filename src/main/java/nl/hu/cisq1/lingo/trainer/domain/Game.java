@@ -11,7 +11,6 @@ import java.util.List;
 
 @Getter
 public class Game {
-    private int points;
     private static PointCalculatorStrategy pointCalculator = new TraditionalPointCalculatorStrategy();
     private List<Round> rounds = new ArrayList<>();
     private static int startWordSize = 5;
@@ -29,5 +28,9 @@ public class Game {
 
     public int nextWordSize() {
         return startWordSize + (rounds.size() % amountOfWordSizeIncreases);
+    }
+
+    public int getPoints() {
+        return rounds.stream().mapToInt(r -> pointCalculator.CalculatePoints(r.getFeedback())).sum();
     }
 }
