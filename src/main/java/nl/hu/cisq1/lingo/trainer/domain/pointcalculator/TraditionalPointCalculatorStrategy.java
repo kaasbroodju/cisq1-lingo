@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TraditionalPointCalculatorStrategy implements PointCalculatorStrategy {
     @Override
-    public int CalculatePoints(List<Feedback> guesses) {
-        return (int) ((5 * (5 - guesses.stream().filter(g -> !g.stream().anyMatch(fp -> fp.getMark() == Mark.INVALID)).count())) + 5);
+    public int calculatePoints(List<Feedback> guesses) {
+        return (int) ((5 * (5 - guesses.stream().filter(g -> g.stream().noneMatch(fp -> fp.getMark() == Mark.INVALID)).count())) + 5);
     }
 }

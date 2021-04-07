@@ -2,8 +2,6 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 import nl.hu.cisq1.lingo.trainer.domain.exceptions.GameOverException;
 import nl.hu.cisq1.lingo.trainer.domain.feedback.Feedback;
-import nl.hu.cisq1.lingo.trainer.domain.feedback.FeedbackPart;
-import nl.hu.cisq1.lingo.trainer.domain.feedback.Mark;
 import nl.hu.cisq1.lingo.words.domain.Word;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -77,10 +75,11 @@ class RoundTest {
         Round round = new Round(new Word("stampot"));
         round.addGuess(new Word("stampot"));
 
-
         assertFalse(round.isOngoing());
 
-        assertThrows(GameOverException.class, () -> round.addGuess(new Word("hutspot")));
+        Word guess = new Word("hutspot");
+
+        assertThrows(GameOverException.class, () -> round.addGuess(guess));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package nl.hu.cisq1.lingo.trainer.domain.feedback;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Objects;
 

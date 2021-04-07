@@ -2,8 +2,9 @@ package nl.hu.cisq1.lingo.trainer.domain.feedback;
 
 import nl.hu.cisq1.lingo.words.domain.Word;
 
-import java.util.*;
-import java.util.stream.Collector;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -22,7 +23,7 @@ public class Feedback extends ArrayList<FeedbackPart> {
         // return invalid list when word length does not fit.
         if (!solution.getLength().equals(guess.getLength())) return Feedback.invalid(guess);
 
-        String leftOverCharacters = "";
+        StringBuilder leftOverStringBuilder = new StringBuilder();
 
         // check all correct spots
         for (Integer i = 0; i < guess.getLength(); i++) {
@@ -33,9 +34,11 @@ public class Feedback extends ArrayList<FeedbackPart> {
                 output.add(new FeedbackPart(guessChar, Mark.CORRECT));
             } else {
                 output.add(new FeedbackPart(guessChar, Mark.INCORRECT));
-                leftOverCharacters += solutionChar;
+                leftOverStringBuilder.append(solutionChar);
             }
         }
+
+        String leftOverCharacters = leftOverStringBuilder.toString();
 
         // check if a spot is on a different location
         if (leftOverCharacters.length() > 1) {

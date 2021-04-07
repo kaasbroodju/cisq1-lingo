@@ -31,6 +31,6 @@ public class Game {
     }
 
     public int getPoints() {
-        return rounds.stream().mapToInt(r -> pointCalculator.CalculatePoints(r.getFeedback())).sum();
+        return rounds.stream().mapToInt(r -> pointCalculator.calculatePoints(r.getFeedback())).sum();
     }
 }

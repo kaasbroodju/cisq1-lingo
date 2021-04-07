@@ -32,8 +32,8 @@ public class Round {
 
     public boolean isFailed() {
         return feedback.stream()
-                .filter(feedbackPart -> !feedbackPart.stream()
-                        .anyMatch(feedbackParts -> feedbackParts.getMark() == Mark.INVALID)
+                .filter(feedbackPart -> feedbackPart.stream()
+                        .noneMatch(feedbackParts -> feedbackParts.getMark() == Mark.INVALID)
                 ).count() >= GUESSINGLIMIT;
     }
 

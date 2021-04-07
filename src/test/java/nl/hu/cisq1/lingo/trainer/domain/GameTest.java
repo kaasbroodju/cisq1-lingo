@@ -25,8 +25,9 @@ class GameTest {
     void addRoundOngoing() {
         Game game = new Game();
         game.addRound(new Round(new Word("foobar")));
+        Round round = new Round(new Word("foobar"));
 
-        assertThrows(RoundStillOngoingException.class, () -> game.addRound(new Round(new Word("foobar"))));
+        assertThrows(RoundStillOngoingException.class, () -> game.addRound(round));
     }
 
     @Test
@@ -37,8 +38,9 @@ class GameTest {
         for (int i = 0; i < 6; i++) {
             game.getCurrentRound().addGuess(new Word("hutspot"));
         }
+        Round round = new Round(new Word("stampot"));
 
-        assertThrows(GameOverException.class, () -> game.addRound(new Round(new Word("stampot"))));
+        assertThrows(GameOverException.class, () -> game.addRound(round));
     }
 
     @Test
