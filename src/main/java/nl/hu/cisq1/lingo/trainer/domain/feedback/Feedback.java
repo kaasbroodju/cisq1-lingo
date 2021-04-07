@@ -20,7 +20,7 @@ public class Feedback extends ArrayList<FeedbackPart> {
         Feedback output = new Feedback();
 
         // return invalid list when word length does not fit.
-        if (solution.getLength() != guess.getLength()) return Feedback.invalid(guess);
+        if (!solution.getLength().equals(guess.getLength())) return Feedback.invalid(guess);
 
         String leftOverCharacters = "";
 

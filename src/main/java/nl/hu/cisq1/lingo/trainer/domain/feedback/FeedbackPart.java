@@ -32,7 +32,12 @@ public class FeedbackPart {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FeedbackPart that = (FeedbackPart) o;
-        return Objects.equals(letter, that.letter) && mark == that.mark;
+        FeedbackPart part = (FeedbackPart) o;
+        return letter.equals(part.letter) && mark == part.mark;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(letter, mark);
     }
 }
