@@ -72,4 +72,16 @@ class GameTest {
 
 
     }
+
+    @Test
+    @DisplayName("Calculate points only for finished rounds")
+    void calculatePointsOnlyForFinishedRounds() {
+        Game game = new Game();
+        game.addRound(new Round(new Word("hutspot")));
+        game.getCurrentRound().addGuess(new Word("hutspot"));
+        game.addRound(new Round(new Word("foo")));
+        game.getCurrentRound().addGuess(new Word("bar"));
+
+        assertEquals(25, game.getPoints());
+    }
 }

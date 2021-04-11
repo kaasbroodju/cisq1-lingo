@@ -22,6 +22,7 @@ public class Feedback extends ArrayList<FeedbackPart> {
 
         // return invalid list when word length does not fit.
         if (!solution.getLength().equals(guess.getLength())) return Feedback.invalid(guess);
+        if (solution.equals(guess)) return Feedback.correct(guess);
 
         StringBuilder leftOverStringBuilder = new StringBuilder();
 
@@ -59,7 +60,7 @@ public class Feedback extends ArrayList<FeedbackPart> {
     public static String giveHint(Word solution, List<Feedback> guesses) {
         return solution.getValue().charAt(0) + IntStream
                 .range(1, solution.getLength())
-                .mapToObj(i -> guesses.stream().anyMatch(feedbackParts -> feedbackParts.get(i).getMark() == Mark.CORRECT) ? String.valueOf(solution.getValue().charAt(i)) : ".")
+                .mapToObj(i -> guesses.stream().filter(feedbackParts -> feedbackParts.size() == solution.getLength()).anyMatch(feedbackParts -> feedbackParts.get(i).getMark() == Mark.CORRECT) ? String.valueOf(solution.getValue().charAt(i)) : ".")
                 .collect(Collectors.joining());
     }
 

@@ -2,24 +2,17 @@ package nl.hu.cisq1.lingo.trainer.domain.feedback;
 
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
-public class FeedbackPart {
+public class FeedbackPart implements Serializable {
     private Character letter;
     private Mark mark;
 
     public FeedbackPart(Character letter, Mark mark) {
         this.letter = letter;
         this.mark = mark;
-    }
-
-    public Character getLetter() {
-        return letter;
-    }
-
-    public Mark getMark() {
-        return mark;
     }
 
     @Override
