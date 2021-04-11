@@ -17,9 +17,9 @@ Geen.
 ### Description
 Components kunnen niet meer bijgewerkt worden of zijn kompleet vergeten. Als er een exploit is gevonden komt de patch laat of niet. Components draaien ook met deze privileges als je applicatie.
 ### Risk
-In de dependency check is naar voren gekomen dat tomcat een exploid heeft
+In de dependency check is naar voren gekomen dat tomcat een exploid heeft met betrekking tot het uploaddn van een file. Om de exploit in werking te krijgen moeten er vier voorwaarde waar zijn. In dit project wordt er geen gebruik van file uploads dus wordt er geen risico gelopen.
 ### Counter-measures
-Geen.
+Dependency check & dependabot.
 
 ## A10:2017 Insufficient Logging
 ### Description
