@@ -7,17 +7,14 @@ import nl.hu.cisq1.lingo.trainer.domain.exceptions.GameOverException;
 import nl.hu.cisq1.lingo.trainer.domain.exceptions.RoundStillOngoingException;
 import nl.hu.cisq1.lingo.words.application.WordService;
 import nl.hu.cisq1.lingo.words.domain.Word;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.mockito.Mockito.*;
-
-
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class TrainerServiceTest {
 

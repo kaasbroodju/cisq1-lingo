@@ -7,7 +7,9 @@ import nl.hu.cisq1.lingo.words.application.WordService;
 import nl.hu.cisq1.lingo.words.domain.Word;
 import org.springframework.stereotype.Service;
 
-@Service
+import javax.transaction.Transactional;
+
+@Service @Transactional
 public class TrainerService {
     private WordService wordService;
     private SpringGameRepository springGameRepository;

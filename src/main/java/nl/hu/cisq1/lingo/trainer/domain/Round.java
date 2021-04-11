@@ -11,7 +11,6 @@ import nl.hu.cisq1.lingo.words.domain.Word;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Setter @Getter @Entity @NoArgsConstructor
 public class Round {

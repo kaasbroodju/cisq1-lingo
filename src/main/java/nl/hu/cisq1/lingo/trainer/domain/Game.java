@@ -9,14 +9,15 @@ import nl.hu.cisq1.lingo.trainer.domain.pointcalculator.PointCalculatorStrategy;
 import nl.hu.cisq1.lingo.trainer.domain.pointcalculator.TraditionalPointCalculatorStrategy;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter @Getter @Entity @NoArgsConstructor
 public class Game {
     @Id @GeneratedValue
     private Long id;
     private static PointCalculatorStrategy pointCalculator = new TraditionalPointCalculatorStrategy();
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Round> rounds = new ArrayList<>();
     private static int startWordSize = 5;
     private static int amountOfWordSizeIncreases = 3;
