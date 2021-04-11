@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
@@ -33,6 +32,7 @@ class TrainerControllerIntegrationTest {
                 .post("/lingo/game/start");
 
         id = mockMvc.perform(createRequest).andReturn().getResponse().getContentAsString().split(",")[0].split(":")[1];
+        System.out.println("qwerty" + id);
     }
 
     @Test
@@ -73,7 +73,8 @@ class TrainerControllerIntegrationTest {
                 .get("/lingo/game/{id}/round", id);
 
         mockMvc.perform(request)
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isNotEmpty());
     }
 
     @Test
@@ -96,7 +97,9 @@ class TrainerControllerIntegrationTest {
 
         for (int i = 0; i < 6; i++) {
             mockMvc.perform(guessRequest)
-                    .andExpect(status().isOk());
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$").isNotEmpty());
+
         }
 
         RequestBuilder request = MockMvcRequestBuilders
@@ -115,6 +118,7 @@ class TrainerControllerIntegrationTest {
                 .content("{\"guess\" : \"tests\"}");
 
         for (int i = 0; i < 6; i++) {
+            System.out.println();
             mockMvc.perform(guessRequest)
                     .andExpect(status().isOk());
         }

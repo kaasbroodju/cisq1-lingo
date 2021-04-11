@@ -58,9 +58,10 @@ public class Feedback extends ArrayList<FeedbackPart> {
     }
 
     public static String giveHint(Word solution, List<Feedback> guesses) {
+        List<Feedback> filteredGuesses = guesses.stream().filter(feedbackParts -> feedbackParts.size() == solution.getLength()).collect(Collectors.toList());
         return solution.getValue().charAt(0) + IntStream
                 .range(1, solution.getLength())
-                .mapToObj(i -> guesses.stream().filter(feedbackParts -> feedbackParts.size() == solution.getLength()).anyMatch(feedbackParts -> feedbackParts.get(i).getMark() == Mark.CORRECT) ? String.valueOf(solution.getValue().charAt(i)) : ".")
+                .mapToObj(i -> filteredGuesses.stream().anyMatch(feedbackParts -> feedbackParts.get(i).getMark() == Mark.CORRECT) ? String.valueOf(solution.getValue().charAt(i)) : ".")
                 .collect(Collectors.joining());
     }
 

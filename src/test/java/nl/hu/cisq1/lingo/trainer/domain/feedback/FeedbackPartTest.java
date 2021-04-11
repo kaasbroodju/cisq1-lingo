@@ -55,6 +55,10 @@ class FeedbackPartTest {
                 Arguments.of(
                         new FeedbackPart('a', Mark.INCORRECT),
                         new Game()
+                ),
+                Arguments.of(
+                        new FeedbackPart('a', Mark.INCORRECT),
+                        null
                 )
 
         );

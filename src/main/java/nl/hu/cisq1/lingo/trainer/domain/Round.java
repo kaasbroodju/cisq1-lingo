@@ -20,6 +20,7 @@ public class Round {
     private static final int GUESSINGLIMIT = 6;
     @OneToOne
     private Word solution;
+    @Column(length = 1024)
     @ElementCollection
     private List<Feedback> feedback = new ArrayList<>();
 
