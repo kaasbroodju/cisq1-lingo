@@ -2,7 +2,6 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import nl.hu.cisq1.lingo.trainer.domain.exceptions.GameOverException;
 import nl.hu.cisq1.lingo.trainer.domain.exceptions.RoundStillOngoingException;
 import nl.hu.cisq1.lingo.trainer.domain.pointcalculator.PointCalculatorStrategy;
@@ -12,7 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter @Getter @Entity @NoArgsConstructor
+@Getter @Entity @NoArgsConstructor
 public class Game {
     @Id @GeneratedValue
     private Long id;

@@ -13,7 +13,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @SpringBootTest
@@ -32,7 +33,6 @@ class TrainerControllerIntegrationTest {
                 .post("/lingo/game/start");
 
         id = mockMvc.perform(createRequest).andReturn().getResponse().getContentAsString().split(",")[0].split(":")[1];
-        System.out.println("qwerty" + id);
     }
 
     @Test

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("lingo")
@@ -31,7 +33,7 @@ public class TrainerController {
         try {
             game = this.trainerService.startNewGame();
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
         }
         return new GameDTOTranslator().translateToDTO(game);
     }
@@ -44,7 +46,7 @@ public class TrainerController {
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
         }
         return new GameDTOTranslator().translateToDTO(game);
     }
@@ -57,7 +59,7 @@ public class TrainerController {
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
         }
         return new RoundDTOTranslator().translateToDTO(round);
     }
@@ -72,7 +74,7 @@ public class TrainerController {
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
         }
         return new GameDTOTranslator().translateToDTO(game);
     }
@@ -87,7 +89,7 @@ public class TrainerController {
         } catch (NoSuchElementException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
         }
         return new RoundDTOTranslator().translateToDTO(round);
     }
